@@ -15,6 +15,8 @@ if __name__ == '__main__':
     bumper1 = bumper.Bumper(screen, 10, pygame.K_UP, pygame.K_DOWN)
     bumper2 = bumper.Bumper(screen, 300, pygame.K_w, pygame.K_s)
 
+    clk = pygame.time.Clock()
+
     while 1:
         for event in pygame.event.get():
             if event.type == pygame.QUIT: sys.exit()
@@ -28,3 +30,5 @@ if __name__ == '__main__':
         bumper2.draw()
 
         pygame.display.flip()
+        clk.tick()
+        print clk.get_fps()
