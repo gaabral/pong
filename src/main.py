@@ -6,11 +6,13 @@ Created on 22.04.2017
 
 import pygame, sys
 import ball
+import bumper
 if __name__ == '__main__':
     size = width, height = 320, 240
     screen = pygame.display.set_mode(size)
 
     ball = ball.Ball(screen)
+    bumper = bumper.Bumper(screen)
 
     while 1:
         for event in pygame.event.get():
@@ -19,4 +21,7 @@ if __name__ == '__main__':
         screen.fill((0,0,0))
         ball.update()
         ball.draw()
+        bumper.update()
+        bumper.draw()
+
         pygame.display.flip()
