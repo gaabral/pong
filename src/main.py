@@ -12,7 +12,8 @@ if __name__ == '__main__':
     screen = pygame.display.set_mode(size)
 
     ball = ball.Ball(screen)
-    bumper = bumper.Bumper(screen)
+    bumper1 = bumper.Bumper(screen, 10, pygame.K_UP, pygame.K_DOWN)
+    bumper2 = bumper.Bumper(screen, 300, pygame.K_w, pygame.K_s)
 
     while 1:
         for event in pygame.event.get():
@@ -21,7 +22,9 @@ if __name__ == '__main__':
         screen.fill((0,0,0))
         ball.update()
         ball.draw()
-        bumper.update()
-        bumper.draw()
+        bumper1.update()
+        bumper2.update()
+        bumper1.draw()
+        bumper2.draw()
 
         pygame.display.flip()
