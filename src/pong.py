@@ -15,7 +15,7 @@ class Pong(object):
         
         self.ball1 = ball.Ball(screen)
         self.coll_engine.register_entity(self.ball1)
-        self.bumper1 = bumper.Bumper(screen, 300, pygame.K_UP, pygame.K_DOWN)
+        self.bumper1 = bumper.Bumper(screen, 150, pygame.K_UP, pygame.K_DOWN)
         self.coll_engine.register_entity(self.bumper1)
     
     def update(self):
@@ -27,4 +27,5 @@ class Pong(object):
     def render(self):
         self.ball1.draw()
         self.bumper1.draw()
+        
         
