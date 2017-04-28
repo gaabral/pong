@@ -9,26 +9,29 @@ import math
 
 class CollisionEngine(object):
     
-    def __init__(self):
-        self.entity_list = []
+    def __init__(self, entity_list):
+        self.entity_list = entity_list
     
     def register_entity(self, entity):
         self.entity_list.append(entity)
         
 
     def update(self):
-        for idx1 in range(0, len(self.entity_list)-1):
-            for idx2 in range(idx1+1, len(self.entity_list)):
-                self.check_collision(self.entity_list[idx1], self.entity_list[idx2])
+        it = iter(self.entity_list)
+
+        ball = it.next()
+        for rect in it:
+            self.check_collision(ball, rect)
             
     def check_collision(self, entity1, entity2):
-        if entity1.__class__.__name__ == 'Ball' and entity2.__class__.__name__ == 'Bumper':
-            self.check_collision_circle_rect(entity1, entity2, (entity1.ball_pos[0], entity1.ball_pos[1], 30), (entity2.x_pos, entity2.bumper_pos, 10, 50))
+        if entity1.__class__.__name__ == 'Ball':
+            self.check_collision_circle_rect(entity1, entity2, (entity1.ball_pos[0], entity1.ball_pos[1], entity1.ball_rad), (entity2.pos[0], entity2.pos[1], entity2.size[0], entity2.size[1]))
         
     def check_collision_circle_rect(self, entity1, entity2, circle, rect):
+
         x = max(rect[0], min(circle[0], rect[0]+rect[2]))
         y = max(rect[1], min(circle[1], rect[1]+rect[3]))
-        
+
         x_dist = x - circle[0]
         y_dist = y - circle[1]
         col_vector = numpy.array([x_dist, y_dist])
@@ -38,5 +41,6 @@ class CollisionEngine(object):
             projection_depth = circle[2]-math.sqrt(x_dist*x_dist + y_dist*y_dist)
             entity1.ball_pos += -projection_depth*col_norm_vector
             entity1.on_collision(col_norm_vector)
+            entity2.on_collision()
             return True
         return False

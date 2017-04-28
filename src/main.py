@@ -10,7 +10,7 @@ import pygame, sys
 import pong
 
 if __name__ == '__main__':
-    size = width, height = 320, 240
+    size = width, height = 720, 480
     screen = pygame.display.set_mode(size)
     
     clk = pygame.time.Clock()
@@ -26,4 +26,4 @@ if __name__ == '__main__':
         pong_game.render()
 
         pygame.display.flip()
-        clk.tick(60)
+        clk.tick(120)

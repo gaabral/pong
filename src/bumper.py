@@ -1,29 +1,25 @@
-from game_obj import GameObj
+from base_rect import BaseRect
 import pygame
 
 
-class Bumper(GameObj):
+class Bumper(BaseRect):
     
-    def __init__(self, screen, x_pos, key_up, key_down):
-        super(Bumper, self).__init__(screen)
-        self.bumper_pos = 0
+    def __init__(self, screen, y_pos, key_left, key_right):
+        super(Bumper, self).__init__(screen, (100, y_pos), (50,10))
         self.bumper_dir = 0
-        self.key_up = key_up
-        self.key_down = key_down
-        self.x_pos =x_pos
+        self.key_left = key_left
+        self.key_right = key_right
 
     def update(self):
         keys = pygame.key.get_pressed()
 
-        if keys[self.key_up]:
+        if keys[self.key_right]:
             self.bumper_dir = 2
-        if keys[self.key_down]:
+        if keys[self.key_left]:
             self.bumper_dir = -2
 
-        self.bumper_pos += self.bumper_dir
+        if self.pos[0] + self.bumper_dir > 30 and self.pos[0] + self.bumper_dir + 50 < 310:
+            self.pos[0] += self.bumper_dir
         self.bumper_dir  = 0
 
-    def draw(self):
-        width, height = self.screen.get_size()
-        pygame.draw.rect(self.screen, (255, 0, 255), (self.x_pos, height-50-self.bumper_pos, 10, 50))
         
